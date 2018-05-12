@@ -1,0 +1,25 @@
+.App {
+  display: grid;
+  grid-template-columns: repeat(13, 1fr);
+  grid-template-rows: repeat(12, 1fr);
+  height: 100vh;
+}
+.card-wrapper {
+  grid-column: 6 / 9;
+  grid-row: 2 / 11;
+  border: 1px solid #000;
+  transition: all 2s ease-in-out;
+}
+.hidden {
+  transition: all 2s ease-in-out;
+  transform: rotateY(180deg);
+  opacity: 0;
+  grid-column: 6 / 9;
+  grid-row: 2 / 11;
+  border: 1px solid #000;
+}
+.results-hidden {
+  opacity: 0;
+  z-index: -1;
+}
+
