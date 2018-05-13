@@ -1,12 +1,14 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Card from './Card';
-import CardFront from './CardFront';
+import { mount } from 'enzyme';
 
 it('flips the card', () => {
-    const div = document.createElement('div');
-    let card = ReactDOM.render(<Card />, div);
-    card.flipCard();
+    let card = mount(<Card />);
+    expect(card.state().showFront).toBe(true);
+    expect(card.find('.front').hasClass('card-wrapper')).toBe(true);
+    card.instance().flipCard();
+    card.update();
 
-    card.contains('This is the front of the card')
+    expect(card.state().showFront).toBe(false);
+    expect(card.find('.front').hasClass('hidden')).toBe(true);
 });

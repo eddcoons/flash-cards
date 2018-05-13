@@ -7,6 +7,7 @@ class CardFront extends React.Component {
 				<div
 					onClick={this.props.flipCard}
 					className={`
+						front
 						${this.props.showFront ? 'card-wrapper' : 'hidden'}
 					`} >
 					<img src={this.props.image} />

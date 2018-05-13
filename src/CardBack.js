@@ -8,6 +8,7 @@ class CardBack extends React.Component {
 					<div
 						// onClick={this.props.flipCard}
 						className={`
+							back
 							${this.props.showFront ? 'hidden' : 'card-wrapper'}
 						`}>
 							<h2>{title}</h2>
