@@ -11,21 +11,10 @@ class Card extends React.Component {
 		newCard: false
 	};
 
-	componentDidMount() {
-		this.getCardInfo(this.props.currentIndex);
-	}
-
-    componentWillReceiveProps(nextProps) {
-    	this.setState({showFront: true});
-        this.getCardInfo(nextProps.currentIndex);
-    }
-
-    getCardInfo = (currentIndex) => {
-    	console.log(this.props.cardIds);
-        const cardInfo = this.props.sampleCards[this.props.cardIds[currentIndex]];
-        this.setState({ currentCard: cardInfo});
-        console.log(cardInfo);
-    };
+    // componentWillReceiveProps(nextProps) {
+    // 	this.setState({showFront: true});
+    //     this.props.getCardInfo(nextProps.currentIndex);
+    // }
 
   	flipCard = () => {
     	this.setState({
@@ -33,8 +22,17 @@ class Card extends React.Component {
 	   	})
 	  };
 
+    static defaultProps = {
+        currentCard: {
+        	image: '',
+        	title: '',
+        	artist: '',
+        	medium: '',
+        	year: ''
+        }
+    };
+
 	render() {
-        // const { title, artist, medium, year } = this.sampleCards;
 		return(
 		<div className={`main-content
 			${this.props.pileExhausted ? 'hidden' : ''}
@@ -50,7 +48,7 @@ class Card extends React.Component {
 						card
 						${this.state.showFront ? '' : 'hidden'}
 					`} >
-                    <img src={this.state.currentCard.image} />
+                    <img src={this.props.currentCard.image} />
                 </div>
                 <div
                     // onClick={this.flipCard}
@@ -59,10 +57,10 @@ class Card extends React.Component {
 							card
 							${this.state.showFront ? 'hidden' : ''}
 						`}>
-                    <h2>{this.state.currentCard.title}</h2>
-                    <h3>{this.state.currentCard.artist}</h3>
-                    <h4>{this.state.currentCard.medium}</h4>
-                    <h4>{this.state.currentCard.year}</h4>
+                    <h2>{this.props.currentCard.title}</h2>
+                    <h3>{this.props.currentCard.artist}</h3>
+                    <h4>{this.props.currentCard.medium}</h4>
+                    <h4>{this.props.currentCard.year}</h4>
                 </div>
 			</div>
 
