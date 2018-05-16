@@ -7,13 +7,12 @@ import sampleCards from './sample-cards'
 class Card extends React.Component {
 	state = {
 		showFront: true,
-        currentIndex: 1,
 		currentCard: {},
 		newCard: false
 	};
 
 	componentDidMount() {
-		this.getCardInfo(this.state.currentIndex);
+		this.getCardInfo(this.props.currentIndex);
 	}
 
     componentWillReceiveProps(nextProps) {
@@ -22,8 +21,10 @@ class Card extends React.Component {
     }
 
     getCardInfo = (currentIndex) => {
-        const cardInfo = sampleCards['card' + currentIndex];
+    	console.log(this.props.cardIds);
+        const cardInfo = this.props.sampleCards[this.props.cardIds[currentIndex]];
         this.setState({ currentCard: cardInfo});
+        console.log(cardInfo);
     };
 
   	flipCard = () => {
@@ -33,26 +34,45 @@ class Card extends React.Component {
 	  };
 
 	render() {
+        // const { title, artist, medium, year } = this.sampleCards;
 		return(
-		<div>
-			 <CardFront
-		       	flipCard={this.flipCard} 
-		        showFront={this.state.showFront}
-                newCard={this.state.newCard}
-		        image={this.state.currentCard.image}
-		      />
-		      <CardBack  
-		        // flipCard={this.flipCard}
-		        showFront={this.state.showFront}
-		        newCard={this.state.newCard}
-		        title={this.state.currentCard.title}
-		        artist={this.state.currentCard.artist}
-		        medium={this.state.currentCard.medium}
-		        year={this.state.currentCard.year}
-		      />
+		<div className={`main-content
+			${this.props.pileExhausted ? 'hidden' : ''}
+		`}>
+			<div className={`card-wrapper
+			${this.state.showFront ? '' : 'card-flip'}
+			`} onClick={this.flipCard}>
+
+                <div
+
+                    className={`
+						front
+						card
+						${this.state.showFront ? '' : 'hidden'}
+					`} >
+                    <img src={this.state.currentCard.image} />
+                </div>
+                <div
+                    // onClick={this.flipCard}
+                    className={`
+							back
+							card
+							${this.state.showFront ? 'hidden' : ''}
+						`}>
+                    <h2>{this.state.currentCard.title}</h2>
+                    <h3>{this.state.currentCard.artist}</h3>
+                    <h4>{this.state.currentCard.medium}</h4>
+                    <h4>{this.state.currentCard.year}</h4>
+                </div>
+			</div>
+
+
+
 		      <Results 
 		        showFront={this.state.showFront}
 		        nextCard={this.props.nextCard}
+		        addToCorrectPile={this.props.addToCorrectPile}
+                addToReviewPile={this.props.addToReviewPile}
 		      />
 	      </div>
 		)
