@@ -10,36 +10,45 @@ class Deck extends Component {
         currentIndex: 0,
         correct: [],
         review: [],
-        sampleCards: [],
         pileExhausted: false,
         sampleCardsLength: 0
     };
 
     initialState = {};
 
-    cards = [];
+    cards = {};
+
+    constructor() {
+        super();
+        this.cards = this.allCards();
+    }
 
     componentDidMount() {
         this.initialState = cloneDeep(this.state);
-        this.setState({sampleCards: this.allCards() }, () => {
-            this.initializeCards(this.allCards());
-        });
+        this.cards = this.allCards();
+        this.initializeCards(this.allCardIds());
     }
 
-    initializeCards(cards) {
-        let cardIds = Object.keys(cards);
+    initializeCards(cardIds) {
         this.setState({sampleCardsLength: cardIds.length -1});
         this.getCardInfo(cardIds);
     }
+
+    getCardInfo = (cardIds) => {
+        const cardId = cardIds[this.state.currentIndex];
+        this.setState({ currentCard: this.findByCardId(cardId)});
+    };
 
     allCards() {
         return sampleCards
     };
 
-    getCardInfo = (cardIds) => {
-        const cardId = cardIds[this.state.currentIndex];
-        const cardInfo = this.state.sampleCards[cardId];
-        this.setState({ currentCard: cardInfo});
+    allCardIds() {
+        return Object.keys(this.cards);
+    }
+
+    findByCardId(id) {
+        return this.cards[id];
     };
 
     nextCard = () => {
@@ -48,7 +57,7 @@ class Deck extends Component {
             return;
         }
         this.setState({currentIndex: this.state.currentIndex + 1}, () => {
-            this.getCardInfo(Object.keys(this.state.sampleCards));
+            this.getCardInfo(Object.keys(this.cards));
         });
 
     };
@@ -59,13 +68,21 @@ class Deck extends Component {
     };
 
     addToReviewPile = () => {
-        this.state.review.push(this.state.currentIndex);
-        this.setState({review: this.state.review})
+        let reviews = this.state.review.slice();
+        reviews.push(this.state.currentCard.id);
+        this.setState({review: reviews})
     };
 
     resetApp = () => {
         this.setState(Object.assign({}, this.initialState), () => {
-            this.initializeCards(this.allCards());
+            this.initializeCards(this.allCardIds());
+        });
+    };
+
+    reviewIncorrectCards = () => {
+        let reviews = this.state.review.slice();
+        this.setState(Object.assign({}, this.initialState), () => {
+            this.initializeCards(reviews)
         });
     };
 
@@ -79,7 +96,6 @@ class Deck extends Component {
                     addToCorrectPile={this.addToCorrectPile}
                     addToReviewPile={this.addToReviewPile}
                     pileExhausted={this.state.pileExhausted}
-                    sampleCards={this.state.sampleCards}
                     currentCard={this.state.currentCard}
                 />
                 <div className={this.state.pileExhausted ? '' : 'hidden'}>
