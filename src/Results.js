@@ -11,9 +11,9 @@ class Results extends React.Component {
     };
 		render() {
 			return(
-				<div className={this.props.showFront ? 'results-hidden' : ''}>
-					<div onClick={this.markCorrect}>Right!</div>
-					<div onClick={this.markIncorrect}>Wrong!</div>
+				<div className={this.props.showFront ? 'results-hidden' : 'results-wrapper'}>
+					<div onClick={this.markCorrect} className={'results-button'}>Right!</div>
+					<div onClick={this.markIncorrect} className={'results-button'}>Wrong!</div>
 				</div>
 			)
 		}

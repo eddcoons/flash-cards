@@ -1,8 +1,5 @@
 import React from 'react';
-import CardFront from './CardFront';
-import CardBack from './CardBack';
 import Results from './Results';
-import sampleCards from './sample-cards'
 
 class Card extends React.Component {
 	state = {
@@ -11,10 +8,6 @@ class Card extends React.Component {
 		newCard: false
 	};
 
-    // componentWillReceiveProps(nextProps) {
-    // 	this.setState({showFront: true});
-    //     this.props.getCardInfo(nextProps.currentIndex);
-    // }
 
   	flipCard = () => {
     	this.setState({
