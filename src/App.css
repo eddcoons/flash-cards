@@ -1,11 +1,12 @@
-h1,h2,h3,h4,h5,h6 {
-  margin: 0;
-}
 
 .App {
   width: 100%;
   height: 100vh;
-  background: #B4D6C6;
+  background: #E4F2F2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .main-content {
@@ -13,6 +14,7 @@ h1,h2,h3,h4,h5,h6 {
   grid-template-columns: repeat(13, 1fr);
   grid-template-rows: repeat(12, 1fr);
   height: 100%;
+  width: 100%;
 }
 
 .card-wrapper {
@@ -21,11 +23,9 @@ h1,h2,h3,h4,h5,h6 {
   transition: all 2s ease-in-out;
   position: relative;
   max-height: 700px;
-  background: #ffffff;
-  border-radius: 20px;
-  -webkit-box-shadow: 5px 5px 5px 0 rgba(86,109,97,0.3);
-  -moz-box-shadow: 5px 5px 5px 0 rgba(86,109,97,0.3);
-  box-shadow: 5px 5px 5px 0 rgba(86,109,97,0.3);
+  -webkit-box-shadow: 10px 10px 10px 0 rgba(108,114,114,0.5);
+  -moz-box-shadow: 0 10px 10px 0 rgba(108,114,114,0.5);
+  box-shadow: 0 10px 10px 0 rgba(108,114,114,0.5);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -42,23 +42,72 @@ h1,h2,h3,h4,h5,h6 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  cursor: pointer;
+  text-align: center;
+}
+
+.card-heading {
+  background: #ffffff;
+  width: 100%;
+  height: 3rem;
+  color: #6C7272;
+  font-size: 1.2rem;
+  font-weight: bold;
+  display: grid;
+  align-items: center;
+}
+
+.heading-text {
+  padding: 0 0 0 .5rem;
 }
 
 .front {
   transition: all 2s ease-in-out;
+  height: 100%;
+  width: 100%;
+  background: #6C7272;
 }
 
 .back {
-  /*transition: all 2s ease-in-out;*/
+  transition: all 2s ease-in-out;
   transform: rotateY(180deg);
   right: 0;
-  color: #1B3440;
+  color: #6C7272;
   width: 100%;
+  height: 100%;
+  background: #ffffff;
+  display: grid;
+  grid-template-rows: 1fr 3rem;
+}
+
+.back-info {
+  display: grid;
+  justify-items: center;
+}
+
+.main-answer {
+  font-weight: 700;
+  font-size: 2rem;
+}
+
+.secondary-answer {
+  font-weight: 400;
+  font-style: italic;
+  font-size: 1.5rem;
+}
+
+.extra-info {
+  font-weight: 400;
 }
 
 .hidden {
   opacity: 0;
+}
+
+.wrapper-hidden {
+  opacity: 0;
+  height: 0;
+  width: 0;
 }
 
 .results-hidden {
@@ -66,22 +115,182 @@ h1,h2,h3,h4,h5,h6 {
   z-index: -1;
 }
 
-img {
-  width: 90%;
-
+.results-wrapper {
+  align-self: end;
+  width: 100%;
+  height: 3rem;
+  background: #6C7272;
+  color: #ffffff;
+  display: flex;
 }
 
-.results-wrapper {
-  grid-column: 10 / 11;
-  grid-row: 5 / 7;
+.results-button:first-child {
+  border-right: 1px solid #ffffff;
 }
 
 .results-button {
-  background: #ffffff;
-  border-radius: 10px;
-  padding: 1rem;
-  margin: 1rem 0 0 0;
-  -webkit-box-shadow: 5px 5px 5px 0 rgba(86,109,97,0.3);
-  -moz-box-shadow: 5px 5px 5px 0 rgba(86,109,97,0.3);
-  box-shadow: 5px 5px 5px 0 rgba(86,109,97,0.3);
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
+
+.result-icon {
+  width: 15px;
+  height: 15px;
+  padding: 0 .5rem 0 0;
+}
+
+.hvr-sweep-to-top {
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px transparent;
+  position: relative;
+  -webkit-transition-property: color;
+  transition-property: color;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+}
+.hvr-sweep-to-top:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #545959;
+  -webkit-transform: scaleY(0);
+  transform: scaleY(0);
+  -webkit-transform-origin: 50% 100%;
+  transform-origin: 50% 100%;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+.hvr-sweep-to-top:hover, .hvr-sweep-to-top:focus, .hvr-sweep-to-top:active {
+  color: white;
+}
+.hvr-sweep-to-top:hover:before, .hvr-sweep-to-top:focus:before, .hvr-sweep-to-top:active:before {
+  -webkit-transform: scaleY(1);
+  transform: scaleY(1);
+}
+
+
+.review-wrapper {
+  width: 50%;
+  height: 35%;
+}
+
+.review-section {
+  background: #6C7272;
+  -webkit-box-shadow: 10px 10px 10px 0 rgba(108,114,114,0.5);
+  -moz-box-shadow: 0 10px 10px 0 rgba(108,114,114,0.5);
+  box-shadow: 0 10px 10px 0 rgba(108,114,114,0.5);
+  width: 100%;
+  height: 100%;
+  display: grid;
+  justify-items: center;
+  grid-template-rows: 3rem 1fr;
+}
+
+.review-heading {
+  width: 100%;
+  height: 3rem;
+  background: #ffffff;
+  text-align: center;
+  font-weight: bold;
+  font-size: 2rem;
+  color: #6C7272;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+}
+
+.review-results {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.review-results-info {
+  color: #ffffff;
+  font-size: 1.5rem;
+  margin: 1.5rem 0 0 0;
+}
+
+.review-button {
+  background: #ffffff;
+  -webkit-box-shadow: 6px 6px 6px 0 rgba(62,66,66,0.5);
+  -moz-box-shadow: 6px 6px 0 rgba(62,66,66,0.5);
+  box-shadow: 6px 6px 0 rgba(62,66,66,0.5);
+  width: 40%;
+  padding: .75rem;
+  text-align: center;
+  margin: 1.5rem 0;
+  cursor: pointer;
+}
+
+.review-sweep-to-top {
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  position: relative;
+  -webkit-transition-property: color;
+  transition-property: color;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+}
+.review-sweep-to-top:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #E4F2F2;
+  -webkit-transform: scaleY(0);
+  transform: scaleY(0);
+  -webkit-transform-origin: 50% 100%;
+  transform-origin: 50% 100%;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+.review-sweep-to-top:hover:before, .review-sweep-to-top:focus:before, .review-sweep-to-top:active:before {
+  -webkit-transform: scaleY(1);
+  transform: scaleY(1);
+}
+
+.review-sweep-to-top:hover {
+  -webkit-box-shadow: 0 0 0 0 rgba(62,66,66,0.5);
+  -moz-box-shadow: 0 0 0 0 rgba(62,66,66,0.5);
+  box-shadow: 0 0 0 0 rgba(62,66,66,0.5);
+}
+
+.review-redo {
+  color: #E4F2F2;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.review-redo:hover {
+  cursor: pointer;
+  color: #ffffff;
+  transform: scale(1.1);
+}
+
+
+img {
+  width: 100%;
+
+}
+

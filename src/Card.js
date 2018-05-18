@@ -27,13 +27,15 @@ class Card extends React.Component {
 
 	render() {
 		return(
-		<div className={`main-content
-			${this.props.pileExhausted ? 'hidden' : ''}
-		`}>
+		<div
+			className={`
+			main-content
+			${this.props.pileExhausted ? 'wrapper-hidden' : ''}
+			`}
+		>
 			<div className={`card-wrapper
 			${this.state.showFront ? '' : 'card-flip'}
 			`} onClick={this.flipCard}>
-
                 <div
 
                     className={`
@@ -41,6 +43,7 @@ class Card extends React.Component {
 						card
 						${this.state.showFront ? '' : 'hidden'}
 					`} >
+                    <div className={'card-heading'}><span className={'heading-text'}>{this.props.currentCard.id}</span></div>
                     <img src={this.props.currentCard.image} />
                 </div>
                 <div
@@ -50,21 +53,26 @@ class Card extends React.Component {
 							card
 							${this.state.showFront ? 'hidden' : ''}
 						`}>
-                    <h2>{this.props.currentCard.title}</h2>
-                    <h3>{this.props.currentCard.artist}</h3>
-                    <h4>{this.props.currentCard.medium}</h4>
-                    <h4>{this.props.currentCard.year}</h4>
+					<div className={'back-info'}>
+                        <h2 className={'main-answer'}>{this.props.currentCard.title}</h2>
+                        <h3 className={'secondary-answer'}>{this.props.currentCard.artist}</h3>
+                        <h4 className={'extra-info'}>{this.props.currentCard.medium}</h4>
+                        <h4 className={'extra-info'}>{this.props.currentCard.year}</h4>
+					</div>
+
+
+                    <Results
+                        showFront={this.state.showFront}
+                        nextCard={this.props.nextCard}
+                        addToCorrectPile={this.props.addToCorrectPile}
+                        addToReviewPile={this.props.addToReviewPile}
+                    />
                 </div>
 			</div>
 
 
 
-		      <Results 
-		        showFront={this.state.showFront}
-		        nextCard={this.props.nextCard}
-		        addToCorrectPile={this.props.addToCorrectPile}
-                addToReviewPile={this.props.addToReviewPile}
-		      />
+
 	      </div>
 		)
 	}

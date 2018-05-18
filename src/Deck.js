@@ -98,7 +98,8 @@ class Deck extends Component {
                     pileExhausted={this.state.pileExhausted}
                     currentCard={this.state.currentCard}
                 />
-                <div className={this.state.pileExhausted ? '' : 'hidden'}>
+
+                <div className={this.state.pileExhausted ? 'review-wrapper' : 'hidden'}>
                     <ReviewOptions
                         correct={this.state.correct}
                         review={this.state.review}
