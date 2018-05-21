@@ -44,7 +44,7 @@ class Card extends React.Component {
 						${this.state.showFront ? '' : 'hidden'}
 					`} >
                     <div className={'card-heading'}><span className={'heading-text'}>{this.props.currentCard.id}</span></div>
-                    <img src={this.props.currentCard.image} />
+                    <img src={this.props.currentCard.image} alt={"front of flash card"}/>
                 </div>
                 <div
                     // onClick={this.flipCard}

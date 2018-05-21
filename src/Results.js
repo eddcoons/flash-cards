@@ -1,11 +1,10 @@
 import React from 'react';
-import checkmark from './assets/checkmark.svg';
-import logo from './logo.svg';
 
 class Results extends React.Component {
     markCorrect = () => {
         this.props.nextCard();
         this.props.addToCorrectPile();
+        // this.props.checkCardsToReview();
     };
     markIncorrect = () => {
         this.props.nextCard();
