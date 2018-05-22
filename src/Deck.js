@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Card from './Card';
 import sampleCards from './sample-cards';
 import ReviewOptions from './ReviewOptions';
+import ResultsMessageGenerator from './ResultsMessageGenerator';
 
 let cloneDeep = require('clone-deep');
 
@@ -103,6 +104,7 @@ class Deck extends Component {
                     <ReviewOptions
                         correct={this.state.correct}
                         review={this.state.review}
+                        sampleCardsLength={Object.keys(this.cards).length}
                         resetApp={this.resetApp}
                         reviewIncorrectCards={this.reviewIncorrectCards}
                     />

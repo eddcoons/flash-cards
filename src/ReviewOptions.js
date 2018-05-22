@@ -1,11 +1,17 @@
 import React from 'react';
+import ResultsMessageGenerator from "./ResultsMessageGenerator";
 
 class ReviewOptions extends React.Component {
+    resultsMessage;
+    constructor(props) {
+        super(props);
+        this.resultsMessage = new ResultsMessageGenerator();
+    }
 
     render() {
         return(
             <div className={'review-section'}>
-                <div className={'review-heading'}>Great Work! You completed the deck!</div>
+                <div className={'review-heading'}>{this.resultsMessage.getMessage(this.props.correct.length, this.props.sampleCardsLength)}</div>
                 <div className={'review-results'}>
                     <div className={'review-results-info'}>You got {this.props.correct.length} right and {this.props.review.length} wrong.</div>
                     <div onClick={this.props.reviewIncorrectCards} className={this.props.review.length === 0 ? 'hidden' : 'review-button review-sweep-to-top'}>Review Missed Cards</div>
