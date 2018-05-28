@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import Card from './Card';
-import sampleCards from './sample-cards';
 import ReviewOptions from './ReviewOptions';
-import ResultsMessageGenerator from './ResultsMessageGenerator';
 import CardStore from './CardStore';
 
 let cloneDeep = require('clone-deep');
