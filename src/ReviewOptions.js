@@ -11,7 +11,7 @@ class ReviewOptions extends React.Component {
     render() {
         return(
             <div className={'review-section'}>
-                <div className={'review-heading'}>{this.resultsMessage.getMessage(this.props.correct.length, this.props.sampleCardsLength)}</div>
+                <div className={'review-heading'}>{this.resultsMessage.getMessage(this.props.correct.length, this.props.sampleCardsLength + 1)}</div>
                 <div className={'review-results'}>
                     <div className={'review-results-info'}>You got {this.props.correct.length} right and {this.props.review.length} wrong.</div>
                     <div onClick={this.props.reviewIncorrectCards} className={this.props.review.length === 0 ? 'hidden' : 'review-button review-sweep-to-top'}>Review Missed Cards</div>

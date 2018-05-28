@@ -3,6 +3,7 @@ import Card from './Card';
 import sampleCards from './sample-cards';
 import ReviewOptions from './ReviewOptions';
 import ResultsMessageGenerator from './ResultsMessageGenerator';
+import CardStore from './CardStore';
 
 let cloneDeep = require('clone-deep');
 
@@ -21,35 +22,30 @@ class Deck extends Component {
 
     constructor() {
         super();
-        this.cards = this.allCards();
+        this.cards = CardStore.allCards();
     }
 
     componentDidMount() {
-        this.initialState = cloneDeep(this.state);
-        this.cards = this.allCards();
-        this.initializeCards(this.allCardIds());
+        this.initialState = {
+            currentIndex: 0,
+            correct: [],
+            review: [],
+            pileExhausted: false,
+            sampleCardsLength: 0
+        };
+        this.cards = CardStore.allCards();
+        this.initializeCards(CardStore.allCardIds());
     }
 
     initializeCards(cardIds) {
-        this.setState({sampleCardsLength: cardIds.length -1});
-        this.getCardInfo(cardIds);
+        this.setState({sampleCardsLength: cardIds.length -1}, () => {
+            this.getCardInfo(cardIds);
+        });
     }
 
     getCardInfo = (cardIds) => {
         const cardId = cardIds[this.state.currentIndex];
-        this.setState({ currentCard: this.findByCardId(cardId)});
-    };
-
-    allCards() {
-        return sampleCards
-    };
-
-    allCardIds() {
-        return Object.keys(this.cards);
-    }
-
-    findByCardId(id) {
-        return this.cards[id];
+        this.setState({ currentCard: CardStore.findByCardId(cardId)});
     };
 
     nextCard = () => {
@@ -60,12 +56,12 @@ class Deck extends Component {
         this.setState({currentIndex: this.state.currentIndex + 1}, () => {
             this.getCardInfo(Object.keys(this.cards));
         });
-
     };
 
     addToCorrectPile = () => {
-        this.state.correct.push(this.state.currentIndex);
-        this.setState({correct: this.state.correct})
+        let correct = this.state.correct.slice();
+        correct.push(this.state.currentIndex);
+        this.setState({correct: correct});
     };
 
     addToReviewPile = () => {
@@ -76,13 +72,21 @@ class Deck extends Component {
 
     resetApp = () => {
         this.setState(Object.assign({}, this.initialState), () => {
-            this.initializeCards(this.allCardIds());
+            this.initializeCards(CardStore.allCardIds());
         });
     };
 
     reviewIncorrectCards = () => {
         let reviews = this.state.review.slice();
-        this.setState(Object.assign({}, this.initialState), () => {
+        let state = {
+            currentIndex: 0,
+            correct: [],
+            review: [],
+            pileExhausted: false,
+            sampleCardsLength: 0
+        };
+
+        this.setState(Object.assign({}, state), () => {
             this.initializeCards(reviews)
         });
     };
@@ -91,7 +95,6 @@ class Deck extends Component {
         return (
             <div className="App">
                 <Card
-                    currentIndex={this.state.currentIndex}
                     nextCard={this.nextCard}
                     key={this.state.currentIndex}
                     addToCorrectPile={this.addToCorrectPile}
@@ -104,7 +107,7 @@ class Deck extends Component {
                     <ReviewOptions
                         correct={this.state.correct}
                         review={this.state.review}
-                        sampleCardsLength={Object.keys(this.cards).length}
+                        sampleCardsLength={this.state.sampleCardsLength}
                         resetApp={this.resetApp}
                         reviewIncorrectCards={this.reviewIncorrectCards}
                     />

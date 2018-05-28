@@ -1,12 +1,8 @@
 
 class ResultsMessageGenerator {
-    correct = 0;
-    sampleCardLength = 0;
 
     getMessage = (correct, sampleCardsLength) => {
-        this.correct = correct;
-        this.sampleCardLength = sampleCardsLength;
-       let percentage = (this.correct / this.sampleCardLength) * 100;
+       let percentage = (correct / sampleCardsLength) * 100;
         if(percentage >= 50) {
             return `Congrats!! You got ${percentage}% correct.`;
         }
