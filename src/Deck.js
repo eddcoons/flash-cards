@@ -16,8 +16,6 @@ class Deck extends Component {
         sampleCardsLength: 0
     };
 
-    initialState = {};
-
     cards = {};
 
     constructor() {
@@ -26,15 +24,17 @@ class Deck extends Component {
     }
 
     componentDidMount() {
-        this.initialState = {
+        this.initializeCards(Object.keys(this.cards));
+    }
+
+    getInitialState() {
+        return  {
             currentIndex: 0,
             correct: [],
             review: [],
             pileExhausted: false,
             sampleCardsLength: 0
         };
-        this.cards = CardStore.allCards();
-        this.initializeCards(CardStore.allCardIds());
     }
 
     initializeCards(cardIds) {
@@ -71,22 +71,14 @@ class Deck extends Component {
     };
 
     resetApp = () => {
-        this.setState(Object.assign({}, this.initialState), () => {
+        this.setState(Object.assign({}, this.getInitialState()), () => {
             this.initializeCards(CardStore.allCardIds());
         });
     };
 
     reviewIncorrectCards = () => {
         let reviews = this.state.review.slice();
-        let state = {
-            currentIndex: 0,
-            correct: [],
-            review: [],
-            pileExhausted: false,
-            sampleCardsLength: 0
-        };
-
-        this.setState(Object.assign({}, state), () => {
+        this.setState(Object.assign({}, this.getInitialState()), () => {
             this.initializeCards(reviews)
         });
     };
