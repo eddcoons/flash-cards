@@ -1,5 +1,5 @@
 import React from 'react';
-import Results from './Results';
+import Results from '../Results';
 
 class Card extends React.Component {
 	state = {

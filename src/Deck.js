@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import Card from './Card';
+import Card from './card/Card';
 import ReviewOptions from './ReviewOptions';
-import CardStore from './CardStore';
+import CardStore from './card/CardStore';
 
 let cloneDeep = require('clone-deep');
 
