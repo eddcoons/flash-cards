@@ -18,11 +18,11 @@ class Deck extends Component {
 
     constructor() {
         super();
-        this.cards = CardStore.allCards();
+        this.cards = CardStore.allCardIds();
     }
 
     componentDidMount() {
-        this.initializeCards(Object.keys(this.cards));
+        this.initializeCards(this.cards);
     }
 
     getInitialState() {
@@ -52,18 +52,24 @@ class Deck extends Component {
             return;
         }
         this.setState({currentIndex: this.state.currentIndex + 1}, () => {
-            this.getCardInfo(Object.keys(this.cards));
+            this.getCardInfo(this.cards);
         });
     };
 
     addToCorrectPile = () => {
         let correct = this.state.correct.slice();
-        correct.push(this.state.currentIndex);
+        if (correct.indexOf(this.state.currentCard.id) !== -1) {
+            return;
+        }
+        correct.push(this.state.currentCard.id);
         this.setState({correct: correct});
     };
 
     addToReviewPile = () => {
         let reviews = this.state.review.slice();
+        if (reviews.indexOf(this.state.currentCard.id) !== -1) {
+            return;
+        }
         reviews.push(this.state.currentCard.id);
         this.setState({review: reviews})
     };
@@ -77,6 +83,7 @@ class Deck extends Component {
     reviewIncorrectCards = () => {
         let reviews = this.state.review.slice();
         this.setState(Object.assign({}, this.getInitialState()), () => {
+            this.cards = reviews;
             this.initializeCards(reviews)
         });
     };
