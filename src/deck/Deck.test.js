@@ -89,3 +89,24 @@ it('cant add same index to review pile twice', () => {
     expect(deck.state().correct.length).toBe(0);
     expect(deck.state().review.length).toBe(4);
 });
+
+it('resets app', () => {
+    let deck = mount(<Deck />);
+    let deckInstance = deck.instance();
+
+    deckInstance.addToReviewPile();
+    deckInstance.nextCard();
+    deckInstance.addToReviewPile();
+    deckInstance.nextCard();
+    deckInstance.addToReviewPile();
+    deckInstance.nextCard();
+    deckInstance.addToReviewPile();
+
+    deckInstance.resetApp();
+
+   expect(deck.state().currentIndex).toBe(0);
+   expect(deck.state().correct.length).toBe(0);
+   expect(deck.state().review.length).toBe(0);
+   expect(deck.state().pileExhausted).toBe(false);
+   expect(deck.state().sampleCardsLength).toBe(3);
+});
